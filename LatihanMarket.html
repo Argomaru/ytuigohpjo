@@ -11,26 +11,36 @@ let pilihan = 0
         if(pilihan == 1)//nunjukin daftar anjing
         {
           let varinfo = ""
-          arrAnjing.forEach((i) => {
-          varinfo += `Anjing jenis ${[i][0]} disediakan dengan harga sebesar ${[i][1]}.Stock tersisa ${[i][2]}\n`;
-          })
+          for(let i = 0; i<arrAnjing.length;i++)
+          {   
+          varinfo += `Anjing jenis ${arrAnjing[i][0]} disediakan dengan harga sebesar ${arrAnjing[i][1]}.Stock tersisa ${arrAnjing[i][2]}\n`;
+
+          } 
           alert(varinfo)
+         
         }
         else if (pilihan == 2)//masukin anjing ke keranjang
         {
-            let temp = []
+          let temp = []
           let isi = prompt('jenis anjing ang ingin dipilih: ')
           for(let i = 0; i<arrAnjing.length; i++){
-            temp.push(fruits[i][0])
+            temp.push(arrAnjing[i][0])
           }
-          if(!keranjang.includes(isi)){
+          if(!temp.includes(isi)){
+                alert('jenis tidak ditemukan, mohon diisi sesuai dengan nama yang ada di list. ')
+                return
+            }
+          if(!temp.includes(isi)){
               keranjang.push(isi)
           }
+     
         }
-        else if(pilihan == 3){
+        else if(pilihan == 3)
+        {
             let cart = keranjang.length? keranjang.join(', '): ''
             let hapuslist = prompt('masukan nama jenis anjing yang ingin dihapus.\n daftar keranjang: '+ cart)
-        if (!keranjang.includes(hapuslist)){
+        if (!keranjang.includes(hapuslist))
+        {
           alert(hapuslist + 'type is not found')
         }
         else {
@@ -43,23 +53,27 @@ let pilihan = 0
           let total = 0
           let kosong = ''
 
-          for(let k = 0; k < arrAnjing.length; k++)
+          for(let i = 0; i < arrAnjing.length; i++)
           {
-            if(arrAnjing[k].includes(keranjang[i]))
+          qty  = prompt(`berapa banyak anjing ${keranjang[i]} yang ingin dibeli?`)
+            for(let i = 0; i<arrAnjing.length; i++)
+            {
+            if(arrAnjing[i].includes(keranjang[i]))
             {
               kosong += `anjing ${keranjang[i]} qty ${qty} @harga Rp.${(arrAnjing[i][2])} total harga Rp.${qty*(arrAnjing[i][2])}\n`
               total += qty*(arrAnjing[i][2])
             }
           } 
         }
-        let resultakhir = prompt(`Berikut adalah tagihan pembelian anda:\n ${kosong} \nbertotalkan ${total}\n Konfirmasi pembayaran anda? \n 1.Yes \n 2. No`)
+          let resultakhir = prompt(`Berikut adalah tagihan pembelian anda:\n ${kosong} \nbertotalkan ${total}\n Konfirmasi pembayaran anda?\n 1.Yes \n 2. No`)
         if (resultakhir == 1){
           pilihan = 5
         }
       }
-      while (pilihan !=5){
-        pilihan = prompt(`1. Daftar Anjing\n2. Add to Cart\n3. Delete list keranjang\n4. Konfirmasi belanjaan\n5. Exit
-        `)
+        }
+    
+      while (pilihan !==5){
+        pilihan = prompt(`1. Daftar Anjing\n2. Add to Cart\n3. Delete list keranjang\n4. Konfirmasi belanjaan\n5. Exit`)
         system(pilihan)
       }
   
